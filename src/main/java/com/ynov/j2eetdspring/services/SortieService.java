@@ -3,7 +3,6 @@ package com.ynov.j2eetdspring.services;
 import com.ynov.j2eetdspring.entities.Sortie;
 import com.ynov.j2eetdspring.entities.User;
 import com.ynov.j2eetdspring.repositories.SortieRepository;
-import com.ynov.j2eetdspring.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

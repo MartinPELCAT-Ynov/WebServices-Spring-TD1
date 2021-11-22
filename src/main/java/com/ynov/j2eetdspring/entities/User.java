@@ -3,6 +3,7 @@ package com.ynov.j2eetdspring.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -11,16 +12,42 @@ public class User {
 
     @Id
     @Column
+    @NotNull
     private String username;
 
     @Column
+    @NotNull
     private String firstname;
 
     @Column
+    @NotNull
     private String lastname;
 
     @Column
     private String telephone;
+
+    @Column(columnDefinition = "VARCHAR(255)")
+    private String role;
+
+    @Column
+    @JsonIgnore
+    private String password;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role.getRole();
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     @ManyToMany(mappedBy = "participants")
     @JsonIgnore

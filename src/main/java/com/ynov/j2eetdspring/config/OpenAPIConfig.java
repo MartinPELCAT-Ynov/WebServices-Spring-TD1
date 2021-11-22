@@ -1,4 +1,4 @@
-package com.ynov.j2eetdspring;
+package com.ynov.j2eetdspring.config;
 
 import org.springdoc.core.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;

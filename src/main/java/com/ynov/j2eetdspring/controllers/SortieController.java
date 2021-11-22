@@ -6,9 +6,11 @@ import com.ynov.j2eetdspring.services.SortieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
-@RestController("/sorties")
+@RestController
+@RequestMapping("/sorties")
 public class SortieController {
 
     @Autowired
@@ -28,14 +30,9 @@ public class SortieController {
         return this.sortieService.getSortie(id);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = "/", method = {RequestMethod.POST, RequestMethod.PUT})
+    @Valid
     public Sortie createSortie(@RequestBody Sortie sortie) {
-        return this.sortieService.createOrUpdate(sortie);
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Sortie updateSortie(@PathVariable("id") Long id, @RequestBody Sortie sortie) {
-        sortie.setId(id);
         return this.sortieService.createOrUpdate(sortie);
     }
 

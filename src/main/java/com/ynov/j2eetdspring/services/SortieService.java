@@ -44,4 +44,14 @@ public class SortieService {
         }
         return sortie;
     }
+
+    public Sortie removeUserFromSortie(Long id, String username) {
+        User user = this.userService.getUserById(username);
+        Sortie sortie = this.sortieRepository.findById(id).orElse(null);
+        if (user != null && sortie != null) {
+            sortie.getParticipants().remove(user);
+            this.sortieRepository.save(sortie);
+        }
+        return sortie;
+    }
 }

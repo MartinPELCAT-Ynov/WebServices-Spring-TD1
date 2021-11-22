@@ -47,8 +47,13 @@ public class SortieController {
 
 
     @RequestMapping(value = "/{id}/join/{user}", method = RequestMethod.GET)
-    public Sortie getParticipants(@PathVariable("id") Long id, @PathVariable("user") String username) {
+    public Sortie addParticipant(@PathVariable("id") Long id, @PathVariable("user") String username) {
         return this.sortieService.addUserToSortie(id, username);
+    }
+
+    @RequestMapping(value = "/{id}/leave/{user}", method = RequestMethod.GET)
+    public Sortie removeParticipants(@PathVariable("id") Long id, @PathVariable("user") String username) {
+        return this.sortieService.removeUserFromSortie(id, username);
     }
 
 }

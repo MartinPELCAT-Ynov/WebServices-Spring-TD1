@@ -1,5 +1,6 @@
 package com.ynov.j2eetdspring.services;
 
+import com.ynov.j2eetdspring.entities.Sortie;
 import com.ynov.j2eetdspring.entities.User;
 import com.ynov.j2eetdspring.repositories.UserRepository;
 import org.apache.commons.lang3.StringUtils;
@@ -63,5 +64,9 @@ public class UserService implements UserDetailsService {
             user.setPassword(encodedNewPassword);
             userRepository.save(user);
         }
+    }
+
+    public List<Sortie> getUserSorties(String username) {
+        return this.userRepository.findById(username).orElse(null).getSorties();
     }
 }

@@ -11,5 +11,4 @@ public class LoggerService {
         Logger logger = Logger.getLogger(LoggerService.class.getName());
         logger.info(message);
     }
-
 }

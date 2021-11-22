@@ -31,8 +31,7 @@ public class SortieController {
     }
 
     @RequestMapping(value = "/", method = {RequestMethod.POST, RequestMethod.PUT})
-    @Valid
-    public Sortie createSortie(@RequestBody Sortie sortie) {
+    public Sortie createSortie(@Valid @RequestBody Sortie sortie) {
         return this.sortieService.createOrUpdate(sortie);
     }
 

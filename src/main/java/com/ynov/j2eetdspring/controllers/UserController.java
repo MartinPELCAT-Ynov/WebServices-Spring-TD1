@@ -30,10 +30,9 @@ public class UserController {
         return userService.getUserById(username);
     }
 
-    @Valid
     @Operation(summary = "Création ou mise à jour d'un utilisateur")
     @RequestMapping(path = "/", method = RequestMethod.PUT)
-    public User addOrUpdateUser(@RequestBody User user) {
+    public User addOrUpdateUser(@Valid @RequestBody User user) {
         loggerService.log(user.toString());
         return userService.createOrUpdate(user);
     }

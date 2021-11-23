@@ -5,6 +5,8 @@ import com.ynov.j2eetdspring.entities.User;
 import com.ynov.j2eetdspring.repositories.UserRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,8 +39,11 @@ public class UserService implements UserDetailsService {
         return this.userRepository.findById(username).orElse(null);
     }
 
-    public List<User> getAllUsers() {
-        return this.userRepository.findAll();
+    public List<User> getAllUsers(Integer page, Integer limit) {
+        if (page == null || limit == null) {
+            return this.userRepository.findAll();
+        }
+        return this.userRepository.findAll(PageRequest.of(page.intValue() - 1, limit.intValue())).toList();
     }
 
     public void deleteUser(String username) {
@@ -56,8 +61,7 @@ public class UserService implements UserDetailsService {
         throw new UsernameNotFoundException("User '" + username + "' not found or inactive");
     }
 
-    public void setPassword(String userName, String
-            newPassword) {
+    public void setPassword(String userName, String newPassword) {
         User user = getUserById(userName);
         if (user != null) {
             String encodedNewPassword = passwordEncoder.encode(newPassword);

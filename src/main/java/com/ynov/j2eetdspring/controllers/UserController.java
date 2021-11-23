@@ -40,8 +40,9 @@ public class UserController {
 
     @Operation(summary = "Récupération de tous les utilisateurs")
     @RequestMapping(path = "/", method = RequestMethod.GET)
-    public List<User> getUsers() {
-        return userService.getAllUsers();
+    public List<User> getUsers(@RequestParam(value = "page", required = false) Integer page,
+                               @RequestParam(value = "limit", required = false) Integer limit) {
+        return userService.getAllUsers(page, limit);
     }
 
     @Operation(summary = "Suppression d'un utilisateur à partir de son identifiant")

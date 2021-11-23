@@ -1,9 +1,12 @@
 package com.ynov.j2eetdspring.services;
 
+import com.ynov.j2eetdspring.dto.SortieWithoutParticipants;
 import com.ynov.j2eetdspring.entities.Sortie;
 import com.ynov.j2eetdspring.entities.User;
 import com.ynov.j2eetdspring.repositories.SortieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,8 +21,11 @@ public class SortieService {
     private UserService userService;
 
 
-    public List<Sortie> getAllSorties() {
-        return this.sortieRepository.findAll();
+    public List<Sortie> getAllSorties(Integer page, Integer limit) {
+        if (page == null || limit == null) {
+            return this.sortieRepository.findAll();
+        }
+        return this.sortieRepository.findAll(PageRequest.of(page.intValue() - 1, limit.intValue())).toList();
     }
 
     public Sortie getSortie(Long id) {
@@ -52,5 +58,14 @@ public class SortieService {
             this.sortieRepository.save(sortie);
         }
         return sortie;
+    }
+
+    public List<Sortie> getMonthSorties(Integer year, Integer month) {
+        return this.sortieRepository.sortiesInMonth(year, month);
+    }
+
+
+    public List<Sortie> getSortieWithNoParticipants() {
+        return  this.sortieRepository.getSortieWithNoParticipants();
     }
 }
